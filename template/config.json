@@ -1,0 +1,45 @@
+{
+    "log_verbose": true,
+    "httpConfig":
+    {
+        "port": 80,
+        "host": "0.0.0.0"
+    },
+    "httpsConfig":
+    {
+        "port": 443,
+        "host": "0.0.0.0",
+        "ssl_key_file": "/etc/letsencrypt/live/__DOMAIN_NAME__/privkey.pem",
+        "ssl_cert_file": "/etc/letsencrypt/live/__DOMAIN_NAME__/fullchain.pem"
+    },
+    "maxPayload": 
+        1048576,
+    "apps": [
+        {
+            "name": "Test",
+            "path": "/"
+        },
+        {
+            "name": "ChatApp",
+            "path": "/chatapp"
+        },
+        {
+            "name": "CallApp",
+            "path": "/callapp"
+        },
+        {
+            "name": "ConferenceApp",
+            "path": "/conferenceapp",
+            "address_sharing": true
+        },
+        {
+            "name": "UnitTests",
+            "path": "/test"
+        },
+        {
+            "name": "UnitTestsAddressSharing",
+            "path": "/testshared",
+            "address_sharing": true
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  awrtc_signaling:
+    image: awrtc_signaling
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./data/config.json:/awrtc_signaling/config.json
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/public:/awrtc_signaling/public
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/public:/var/www/certbot
