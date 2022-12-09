@@ -12,6 +12,16 @@
 
 echo "Init using domain: ${domain}, email: ${email} and additional flags: ${cert_args}"
 
+if [ -z ${domain+x} ];
+then
+   echo "domain not set!"
+   exit 1
+fi
+if [ -z ${email+x} ];
+then
+   echo "email not set!"
+   exit 1
+fi
 
 cert_target_dir="./data/certbot/conf/live/$domain"
 certbot_rsa_key_size=4096
