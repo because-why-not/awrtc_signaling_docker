@@ -24,7 +24,7 @@ then
    exit 1
 fi
 
-cert_target_dir="./data/certbot/conf/live/$domain"
+cert_target_dir="./data/letsencrypt/live/$domain"
 certbot_rsa_key_size=4096
 
 if [ -d "${cert_target_dir}" ];
@@ -34,12 +34,12 @@ then
 fi
 
 echo "Generating data folder from template"
-mkdir -p data
-cp ./template/config.json ./data/config.json
-cp -r ./template/public ./data/public
+mkdir -p data/awrtc_signaling
+cp ./template/awrtc_signaling/config.json ./data/awrtc_signaling/config.json
+cp -r ./template/awrtc_signaling/public ./data/awrtc_signaling/public
 
 echo "Insert domain name into the config.json"
-sed -i "s/__DOMAIN_NAME__/${domain}/g" ./data/config.json
+sed -i "s/__DOMAIN_NAME__/${domain}/g" ./data/awrtc_signaling/config.json
 
 echo "Copy dummy init certificates to ${cert_target_dir}"
 mkdir -p ${cert_target_dir}

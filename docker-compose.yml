@@ -6,12 +6,12 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./data/config.json:/awrtc_signaling/config.json
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/public:/awrtc_signaling/public
+      - ./data/awrtc_signaling/config.json:/awrtc_signaling/config.json
+      - ./data/letsencrypt:/etc/letsencrypt
+      - ./data/awrtc_signaling/public:/awrtc_signaling/public
     restart: unless-stopped
   certbot:
     image: certbot/certbot
     volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/public:/var/www/certbot
+      - ./data/letsencrypt:/etc/letsencrypt
+      - ./data/awrtc_signaling/public:/var/www/certbot
