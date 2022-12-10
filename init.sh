@@ -29,7 +29,7 @@ certbot_rsa_key_size=4096
 
 if [ -d "${cert_target_dir}" ];
 then
-  echo "Certbot folder already exists. Stopping to avoid overwriting an existin certificate. Remove the ./data folder first to restart from scratch!" >&2
+  echo "Certbot folder already exists. Stopping to avoid overwriting an existing certificate. Remove the ./data folder first to restart from scratch!" >&2
   exit 1
 fi
 
@@ -59,9 +59,7 @@ ${docker_compose} run --rm --entrypoint "\
     $cert_args \
     --email $email \
     -d $domain \
-    --rsa-key-size $certbot_rsa_key_size \
-    --agree-tos \
-    --force-renewal" certbot
+    --rsa-key-size $certbot_rsa_key_size" certbot
 
 #shut server down again. Once start is triggered it will boot up using
 #the new certificates
