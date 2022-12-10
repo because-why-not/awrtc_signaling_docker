@@ -1,2 +1,3 @@
 #!/bin/bash
-docker-compose up -d awrtc_signaling
+. ./env.sh
+${docker_compose} up -d awrtc_signaling

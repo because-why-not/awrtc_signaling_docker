@@ -1,2 +1,3 @@
 #!/bin/bash
-docker-compose down
+. ./env.sh
+${docker_compose} down

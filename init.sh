@@ -9,6 +9,7 @@
 #
 #Note let's encrypt has limits for how often you can try to get a valid certificate
 #Use the testing command for experimentation/debugging (but even this might have limits)
+. ./env.sh
 
 echo "Init using domain: ${domain}, email: ${email} and additional flags: ${cert_args}"
 
@@ -46,14 +47,14 @@ cp ./awrtc_signaling/out/ssl.crt ${cert_target_dir}/fullchain.pem
 cp ./awrtc_signaling/out/ssl.key ${cert_target_dir}/privkey.pem
 
 echo "Starting awrtc_signaling"
-docker-compose up --force-recreate -d awrtc_signaling
+${docker_compose} up --force-recreate -d awrtc_signaling
 #wait a bit to ensure it is fully booted up
 sleep 5
 #we remove the folder again to not interfere with certbot
 rm -rf "${cert_target_dir}"
 
 echo "Getting a lets encrypt certificate"
-docker-compose run --rm --entrypoint "\
+${docker_compose} run --rm --entrypoint "\
   certbot certonly --webroot -w /var/www/certbot \
     $cert_args \
     --email $email \
@@ -64,5 +65,5 @@ docker-compose run --rm --entrypoint "\
 
 #shut server down again. Once start is triggered it will boot up using
 #the new certificates
-docker-compose down
+${docker_compose} down
 echo "Init complete. Use ./start.sh to run. "
