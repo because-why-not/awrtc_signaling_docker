@@ -1,5 +1,6 @@
 #!/bin/bash
-
+#to make sure crontab can find older docker-compose installs
+PATH=/usr/local/bin:$PATH
 docker-compose --version > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     docker_compose="docker-compose"
