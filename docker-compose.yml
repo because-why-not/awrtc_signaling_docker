@@ -5,6 +5,11 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "100m"
+            max-file: "10"
     volumes:
       - ./data/awrtc_signaling/config.json:/awrtc_signaling/config.json
       - ./data/letsencrypt:/etc/letsencrypt
