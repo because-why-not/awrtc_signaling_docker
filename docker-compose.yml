@@ -5,6 +5,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "12776:80"
+      - "12777:443"
     logging:
         driver: "json-file"
         options:
