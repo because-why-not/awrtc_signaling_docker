@@ -24,7 +24,17 @@ then
    exit 1
 fi
 
-cert_target_dir="./data/letsencrypt/live/$domain"
+domains_list=(${domain})
+#first domain is used as folder name by certbot
+domain_primary=${domains_list[0]}
+certbot_domains=""
+for single_domain in $domain; do
+  certbot_domains="$certbot_domains -d $single_domain"
+done
+
+
+cert_target_dir="./data/letsencrypt/live/$domain_primary"
+echo "Certficates will be stored at $domain_primary"
 certbot_rsa_key_size=4096
 
 if [ -d "${cert_target_dir}" ];
@@ -39,7 +49,7 @@ cp ./template/awrtc_signaling/config.json ./data/awrtc_signaling/config.json
 cp -r ./template/awrtc_signaling/public ./data/awrtc_signaling/public
 
 echo "Insert domain name into the config.json"
-sed -i "s/__DOMAIN_NAME__/${domain}/g" ./data/awrtc_signaling/config.json
+sed -i "s/__DOMAIN_NAME__/${domain_primary}/g" ./data/awrtc_signaling/config.json
 
 echo "Copy dummy init certificates to ${cert_target_dir}"
 mkdir -p ${cert_target_dir}
@@ -58,7 +68,7 @@ ${docker_compose} run --rm --entrypoint "\
   certbot certonly --webroot -w /var/www/certbot \
     $cert_args \
     --email $email \
-    -d $domain \
+    ${certbot_domains} \
     --rsa-key-size $certbot_rsa_key_size" certbot
 
 #shut server down again. Once start is triggered it will boot up using
