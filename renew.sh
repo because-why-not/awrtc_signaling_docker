@@ -24,4 +24,4 @@ fi
 #new certificate. restart
 echo "Certificates updated. Restarting server"
 rm ./data/letsencrypt/updated
-./stop.sh && ./start.sh
+${docker_compose} restart
