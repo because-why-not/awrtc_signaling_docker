@@ -9,20 +9,25 @@ You need:
 * an open TCP port 80 and 443
 
 # Setup
+Run the commands below after logging into your server. This assumes docker & git are already installed. 
+```bash
+#Download the source code
+git clone --recursive https://github.com/because-why-not/awrtc_signaling_docker
+# enter project dir. All other commands below must be executed from this folder
+cd awrtc_signaling_docker
+#build docker container for awrtc_signaling
+./build.sh
 
-1. Download the source code using git clone --recursive https://github.com/because-why-not/awrtc_signaling_docker
-2. cd awrtc_signaling_docker All other commands below must be executed from the project folder.
-3. Run ./build.sh to build the docker container. 
-4. Then run the init script to get your first SSL certificate e.g.:
-domain=your.domain.com email=your_email@example.com ./init.sh
-
+#run the init script to get your first SSL certificate
+domain=your.domain.com email=your_email@example.com ./init.sh\
+```
 
 # Usage
-Use ./start.sh to run the server and ./stop.sh to shutdown. 
+Use `./start.sh` to run the server and `./stop.sh` to shutdown and cleanup the docker containers. 
 
-Test via https://your.domain.com . It should print "Running ...". 
+After starting you can test the server by visiting your own domain e.g.: https://your.domain.com . It should print "Running ...". 
 
-You can customize the config.json via data/awrtc_signaling/config.json 
+You can customize the config.json via data/awrtc_signaling/config.json .
 
 # Automatic renewal
 
@@ -35,18 +40,23 @@ crontab -e
 
 Then add a line to run a script periodically:
 e.g. The line below will trigger it every day at 7:41 am. 
-41 7 * * * cd /path/to/your/folder && ./renew.sh 2>&1 | logger
+```41 7 * * * cd /path/to/your/folder && ./renew.sh 2>&1 | logger
+```
 
 
 # Problems
 
-Problem: The init script failed and now it returns an error if I try again:
+Get logs via docker compose e.g.: `docker compose logs -f --tail 100`. This will show the last 100 lines of log and automatically follow any new log generated. 
 
+## Problem: The init script failed and now it returns an error if I try again:
 Delete the data folder and then try again. 
 
-Problem: The renewal didn't work correctly. 
 
+
+## Problem: The renewal didn't work correctly. 
 To force a renewal for testing call:
-cert_args="--force-renew --break-my-certs" ./renew.sh
-or uncomment the cert_args line in renew.sh
+`cert_args="--force-renew --break-my-certs" ./renew.sh`
+or uncomment the cert_args line in renew.sh. This can be used for testing. Just note letsencrypt has a limit how often you can do this. 
+
+
 
