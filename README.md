@@ -40,8 +40,9 @@ crontab -e
 
 Then add a line to run a script periodically:
 e.g. The line below will trigger it every day at 7:41 am. 
-```41 7 * * * cd /path/to/your/folder && ./renew.sh 2>&1 | logger
-```
+
+
+`41 7 * * * cd /path/to/your/folder && ./renew.sh 2>&1 | logger`
 
 
 # Problems
