@@ -53,8 +53,8 @@ sed -i "s/__DOMAIN_NAME__/${domain_primary}/g" ./data/awrtc_signaling/config.jso
 
 echo "Copy dummy init certificates to ${cert_target_dir}"
 mkdir -p ${cert_target_dir}
-cp ./awrtc_signaling/out/ssl.crt ${cert_target_dir}/fullchain.pem
-cp ./awrtc_signaling/out/ssl.key ${cert_target_dir}/privkey.pem
+cp ./awrtc_signaling/ssl.crt ${cert_target_dir}/fullchain.pem
+cp ./awrtc_signaling/ssl.key ${cert_target_dir}/privkey.pem
 
 echo "Starting awrtc_signaling"
 ${docker_compose} up --force-recreate -d awrtc_signaling
