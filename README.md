@@ -19,7 +19,7 @@ cd awrtc_signaling_docker
 ./build.sh
 
 #run the init script to get your first SSL certificate
-domain=your.domain.com email=your_email@example.com ./init.sh\
+domain=your.domain.com email=your_email@example.com ./init.sh
 ```
 
 # Usage
